@@ -10,11 +10,18 @@ $(document).ready(() => {
 
     let listarProductos = () => {
         $.post({
-            url: urlBase + "/api/empleado/buscar-empleado",
-            headers: header,
-            data: JSON.stringify(data)
+            url: urlBase + "api/Productos/listar",
+            headers: header
         }).done((response) => {
-            
+            console.log(response)
+            for(let i=0; i< response.length; i++){
+                console.log(response[i])
+                
+                let option = `<option value='${response[i].idproducto}'>${response[i].nombre}</option>`
+
+                $("#producto").append(option)
+            }
+
         }).fail((jqXHR, textStatus, errorThrown) => {
             console.log("Error: " + textStatus + " detalle: " + errorThrown, " FF " + jqXHR);
         })
